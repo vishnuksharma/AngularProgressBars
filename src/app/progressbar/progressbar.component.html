@@ -1,0 +1,26 @@
+<section>
+  <div *ngIf="isApiError == false; else errorCase" class="progress-container">
+    <div class="progress-container">
+      <div  class="progress-wrapper">
+          <div #progressBar *ngFor="let bar of apiRespBars; let i = index;" [attr.data-index]="i" class="progress">
+              <span class="sr-only" [attr.data-percent]="bar">{{bar}}% </span>
+              <div class="progress-bar" [style.width.px]=" progressBarWidth/progressBarLimit * bar"></div>
+          </div>        
+      </div>
+    </div>
+    <div class="handle-container">
+      <div class="dropdown">
+        <select (change)="resetCurrentPercent()" name="progress-dd" #dropdownval class="progress-dd">
+          <option *ngFor="let bar of apiRespBars; let i = index" value={{i}}>#progress{{i+1}}</option>
+        </select>
+      </div>
+      <div class="btn-container">
+          <button *ngFor="let eachBtn of apiRespButton" class="progress-btn" value={{eachBtn}} (click)="changeProgress($event)">{{eachBtn}}</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #errorCase>
+    <p class="error">There is some error while calling api. Please try again!</p>
+  </ng-template>
+
+</section>
